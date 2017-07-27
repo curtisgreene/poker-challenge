@@ -9,6 +9,7 @@ class Game
 
   def find_pairs(players, community)
     players.each do |player|
+      holding_pair(player)
       matching_cards = player.hand.select do |card| # just selects from the players hand
         community.collect(&:rank).include?(card.rank)
       end
@@ -25,7 +26,11 @@ class Game
   end
 
   def holding_pair(player)
-    
+    if player.hand[0].value == player.hand[1].value
+      puts "#{player} holds this pair: #{player.hand.join(", ")}"
+    else
+      nil
+    end
   end
 
   def play

@@ -20,7 +20,7 @@ class Card
     when "Queen"
       12
     when "Jack"
-      12
+      11
     else
       @rank.to_i
     end
