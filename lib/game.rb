@@ -41,12 +41,15 @@ class Game
     end
   end
 
-  def holding_pair(player) # limited to 2 card hand
-    if player.hand[0].value == player.hand[1].value
-      player.pairs << player.hand[0]
-      puts "#{player} holds this pair: #{player.hand.join(", ")}"
-    else
+  def holding_pair(player)
+    hand_hash = player.hand.group_by(&:rank)
+    hand_hash.delete_if { | key, value | value.length < 2 }
+    hand_pairs =  hand_hash.values
+    legible_pairs = hand_pairs.collect { |pair_array| "(#{pair_array[0]}, #{pair_array[1]})" }
+    if legible_pairs.length == 0
       nil
+    else
+      puts "#{player.name} holds these pairs: #{legible_pairs.join(", ")}"
     end
   end
 
