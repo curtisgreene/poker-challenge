@@ -16,7 +16,6 @@ class Game
       matching_cards = player.hand.select do |card| # just selects from the players hand
         community.collect(&:rank).include?(card.rank)
       end
-      # matching_cards.each { |card| player.pairs << card.rank }
       pairs = matching_cards.map do |card| # this card is in players hand
         player.pairs << card
         community_match = community.find do |community_card|
@@ -59,26 +58,32 @@ class Game
     if winning_hand.length == 0
       puts "No one wins, please be better"
     elsif winning_hand.length == 1
-      puts "#{winning_hand.keys[0]} wins with a pair of #{winning_hand.values[0].rank}s"
+      winner_art
+      puts "🎉🎉🎉 #{winning_hand.keys[0]} wins with a pair of #{winning_hand.values[0].rank}s! 🎉🎉🎉"
     else
-      "#{winning_hand.keys.join(" & ")} tied with pairs of #{winning_hand.values[0].rank}s"
+      tie_art
+      "#{winning_hand.keys.join(" & ")} tied with pairs of #{winning_hand.values[0].rank}s!"
     end
   end
 
   def play
+    decorate
+    opening
+    decorate
     @deck.shuffle
     @deck.deal(@players, @hand_size)
     @players.each do |player|
       puts "#{player} has: #{player.hand.join(", ")}"
     end
-    puts "♠ ♥ ♣ ♦ ♤ ♡ ♧ ♢ \n" * 3
+    decorate
     community = @deck.community
     puts "Community cards are: #{community.join(", ")}"
-    puts "♠ ♥ ♣ ♦ ♤ ♡ ♧ ♢ \n" * 3
+    decorate
     community_pairs(community)
     # community_values = community.collect(&:rank)
     find_pairs(@players, community)
     find_winner
+    decorate
   end
 
 end
