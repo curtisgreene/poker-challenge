@@ -3,7 +3,7 @@ require_all 'lib'
 
 RSpec.describe Card do
 
-  it 'should know its face value' do
+  it 'with a face knows its value' do
     card = Card.new("Spades", "Ace")
     expect(card.value).to eq(14)
   end
@@ -12,7 +12,5 @@ RSpec.describe Card do
     card = Card.new("Hearts", "3")
     expect(card.value).to eq(3)
   end
-
-
 
 end

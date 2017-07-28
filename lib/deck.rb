@@ -22,8 +22,21 @@ class Deck
     @cards.each { |card| card }
   end
 
-  def shuffle
-    @cards.shuffle!
+  # def shuffle
+  #   @cards.shuffle!
+  # end
+
+  def fisher_yates_shuffle  # big O(n) -- faster than built in shuffle
+    counter = @cards.length - 1
+    while counter > 0
+      # item selected from the unshuffled part of array
+      random_index = rand(counter)
+      # swap the items at those locations
+      @cards[counter], @cards[random_index] = @cards[random_index], @cards[counter]
+      # de-increment counter
+      counter -= 1
+    end
+    @cards
   end
 
   def deal(players, hand_size)

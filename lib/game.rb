@@ -45,7 +45,9 @@ class Game
     hand_hash = player.hand.group_by(&:rank)
     hand_hash.delete_if { | key, value | value.length < 2 }
     hand_pairs =  hand_hash.values
-    legible_pairs = hand_pairs.collect { |pair_array| "(#{pair_array[0]}, #{pair_array[1]})" }
+    legible_pairs = hand_pairs.collect { |pair_array|
+    player.pairs << pair_array[0]
+    "(#{pair_array[0]}, #{pair_array[1]})" }
     if legible_pairs.length == 0
       nil
     else
@@ -74,8 +76,8 @@ class Game
     decorate
     opening_art
     decorate
-    sleep(2.5) # pause for dramatic effect
-    @deck.shuffle
+    # sleep(2.5) # pause for dramatic effect
+    @deck.fisher_yates_shuffle
     @deck.deal(@players, @hand_size)
     @players.each do |player|
       puts "#{player} has: #{player.hand.join(", ")}"

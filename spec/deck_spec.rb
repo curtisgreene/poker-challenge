@@ -14,4 +14,7 @@ RSpec.describe Deck do
     expect(community.length).to eq(5)
   end
 
+  # it 'can be shuffled' do 
+
+
 end
