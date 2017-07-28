@@ -11,6 +11,7 @@ class Card
     "#{@rank} of #{@suit}"
   end
 
+
   def value
     case @rank
     when "Ace"
