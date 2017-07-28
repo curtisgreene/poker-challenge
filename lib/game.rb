@@ -76,7 +76,7 @@ class Game
     decorate
     opening_art
     decorate
-    # sleep(2.5) # pause for dramatic effect
+    sleep(2.5) # pause for dramatic effect
     @deck.fisher_yates_shuffle
     @deck.deal(@players, @hand_size)
     @players.each do |player|
