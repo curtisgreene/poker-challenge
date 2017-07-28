@@ -56,20 +56,22 @@ class Game
     highest_card =  players_highest_pair.values.max_by { |card| card.value }
     winning_hand = players_highest_pair.select { |player_name, card| card == highest_card }
     if winning_hand.length == 0
-      puts "No one wins, please be better"
+      boring_art
+      puts "🤷 No one wins, please be better 🤷"
     elsif winning_hand.length == 1
       winner_art
       puts "🎉🎉🎉 #{winning_hand.keys[0]} wins with a pair of #{winning_hand.values[0].rank}s! 🎉🎉🎉"
     else
       tie_art
-      "#{winning_hand.keys.join(" & ")} tied with pairs of #{winning_hand.values[0].rank}s!"
+      "✌️ #{winning_hand.keys.join(" & ")} tied with pairs of #{winning_hand.values[0].rank}s! ✌️"
     end
   end
 
   def play
     decorate
-    opening
+    opening_art
     decorate
+    sleep(2.5) # pause for dramatic effect
     @deck.shuffle
     @deck.deal(@players, @hand_size)
     @players.each do |player|
