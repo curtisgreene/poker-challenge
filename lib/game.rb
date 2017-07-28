@@ -59,7 +59,7 @@ class Game
     players_highest_pair =  @players.each_with_object({}) { |player, hash| hash[player.name] = player.pairs.max_by { |card| card.value } }
     players_highest_pair.delete_if { |player_name, card| !card }
     highest_card =  players_highest_pair.values.max_by { |card| card.value }
-    winning_hand = players_highest_pair.select { |player_name, card| card == highest_card }
+    winning_hand = players_highest_pair.select { |player_name, card| card.value == highest_card.value }
     if winning_hand.length == 0
       boring_art
       puts "🤷 No one wins, please be better 🤷"
@@ -68,7 +68,7 @@ class Game
       puts "🎉🎉🎉 #{winning_hand.keys[0]} wins with a pair of #{winning_hand.values[0].rank}s! 🎉🎉🎉"
     else
       tie_art
-      "✌️ #{winning_hand.keys.join(" & ")} tied with pairs of #{winning_hand.values[0].rank}s! ✌️"
+      puts "✌️ #{winning_hand.keys.join(" & ")} tied with pairs of #{winning_hand.values[0].rank}s! ✌️"
     end
   end
 
@@ -76,7 +76,7 @@ class Game
     decorate
     opening_art
     decorate
-    sleep(2.5) # pause for dramatic effect
+    # sleep(2.5) # pause for dramatic effect
     @deck.fisher_yates_shuffle
     @deck.deal(@players, @hand_size)
     @players.each do |player|
